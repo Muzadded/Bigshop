@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Common;
 use Illuminate\Console\View\Components\Alert;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Intervention\Image\Laravel\Facades\Image;
+use DB;
+
 
 class CategoryController extends Controller
 {
@@ -24,7 +27,9 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $data = array();
+        $common_model = new Common();
+        $data['all_records'] = $common_model->allCategories();
+        //$data = array('');
         return view('admin.category.create',compact('data'));
     }
 
@@ -38,6 +43,11 @@ class CategoryController extends Controller
         $category_model->category_name = $request->category_name;
         $category_model->parent_id = $request->parent_id;
         $category_model->level = 0;
+
+        if($category_model->parent_id){
+            $parent_cat_info = DB::table('categories')->where('category_row_id',$category_model->parent_id)->first();
+            $category_model->level = $parent_cat_info->level + 1;
+        }
 
         if($request->category_image){
             $category_image = $request->file('category_image');
@@ -59,6 +69,16 @@ class CategoryController extends Controller
         $category_model->is_featured = $request->is_featured?1:0;
 
         $category_model->save();
+
+        if($category_model->parent_id){
+            if($parent_cat_info->has_child != 1){
+                DB::table('categories')
+                    ->where('category_row_id', $request->parent_id)
+                    ->update([
+                        'has_child' => 1
+                    ]);
+            }
+        }
 
         //Alert::success('Category Created Successfully!', 'success');
         return Redirect::to('/admin/category');

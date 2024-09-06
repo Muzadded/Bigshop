@@ -44,7 +44,20 @@
 	                  <select name="parent_id" class = "form-control" required>
                           <option value="">Select</option>
                           <option value="0"> Main Category </option>
-                          
+                          @foreach($data['all_records'] as $row)
+	                          <option value="{{ $row->category_row_id}}">
+	                          <!-- @if($row->level == 0) <b>  @endif -->  
+	                          @if($row->level == 0) <b>  @endif 
+	                          @if($row->level == 1) &nbsp; - @endif   
+	                          @if($row->level == 2) &nbsp; &nbsp; - - @endif     
+	                          @if($row->level == 3) &nbsp; &nbsp; &nbsp; - - - @endif       
+	                          @if($row->level == 4) &nbsp; &nbsp; &nbsp; &nbsp; - - - - @endif       
+	                          @if($row->level == 5) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  - - - - - @endif       
+	                          @if($row->level > 5)  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - - - @endif
+	                          {{ $row->category_name }} 
+	                          @if($row->level == 0) </b>  @endif  
+	                          </option>
+                          @endforeach
                         </select>
 	                </div>
                   <div class="form-group">
