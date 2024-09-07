@@ -27,14 +27,58 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-12">
+        <table id="category_table" class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>Category Name</th>
+              <th>Category Image</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach($data['all_records'] as $row)
+            <tr>
+              <td>
+                @if($row->level == 0) <b> @endif
+                  @if($row->level == 1) &nbsp; - @endif
+                  @if($row->level == 2) &nbsp; &nbsp; - - @endif
+                  @if($row->level == 3) &nbsp; &nbsp; &nbsp; - - - @endif
+                  @if($row->level == 4) &nbsp; &nbsp; &nbsp; &nbsp; - - - - @endif
+                  @if($row->level == 5) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - - - - - @endif
+                  @if($row->level > 5) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - - - @endif
 
+                  {{ $row->category_name }}
+                  @if($row->level == 0) </b> @endif
+              </td>
+              <td align="center">
+                @if($row->category_image != null)
+                <img src="{{ asset('uploads/category/thumbnail').'/'.$row->category_image }}" alt="" width="80px">
+                @else
+                <img src="{{ asset('uploads/category/no_category.png') }}" alt="" width="50px" height="50px">
+                @endif
+              </td>
+              <td align="center">
+
+                <button onclick="window.location='{{ url('/')}}/admin/category/{{$row->category_row_id}}/edit'" class="btn btn-warning mb-2" style="margin-top: 8px;">Edit</button>
+
+                <form id="deleteCategory_{{$row->category_row_id}}" action="{{ url('/')}}/admin/category/{{$row->category_row_id}}" style="display: inline;" method="POST">
+                  {{ method_field('DELETE') }}
+                  @csrf
+                  <input class="btn btn-danger deleteLink" category_name="{{ $row->category_name }}" category_row_id="{{$row->category_row_id}}" data-toggle="modal" data-target="#category-delete-modal" deleteID="{{$row->category_row_id}}" value="Delete" style="width: 100px;">
+                </form>
+
+              </td>
+            </tr>
+            @endforeach
+          </tbody>
+        </table>
         <div class="card">
           <div class="card-header">
             <h3 class="card-title">Category Management</h3>
           </div>
           <!-- /.card-header -->
           <div class="card-body">
-            
+
           </div>
           <!-- /.card-body -->
         </div>
@@ -74,24 +118,24 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
-      $('#example1').DataTable({
-      	"order": [],
-      });
+    $('#example1').DataTable({
+      "order": [],
+    });
 
-      $('.deleteLink').click(function(){
-      	var category_name = $(this).attr('category_name');
-      	var category_row_id = $(this).attr('category_row_id');
-      	console.log(category_name);
-      	$('#category-delete-modal .catname').empty();
-      	$('#category-delete-modal .catname').append(category_name);
-      	$('#category-delete-modal .submitDeleteModal').attr('category_row_id', category_row_id);
-      });
+    $('.deleteLink').click(function() {
+      var category_name = $(this).attr('category_name');
+      var category_row_id = $(this).attr('category_row_id');
+      console.log(category_name);
+      $('#category-delete-modal .catname').empty();
+      $('#category-delete-modal .catname').append(category_name);
+      $('#category-delete-modal .submitDeleteModal').attr('category_row_id', category_row_id);
+    });
 
-      $('.submitDeleteModal').click(function(){
-      	var category_row_id = $(this).attr('category_row_id');
-        console.log(category_row_id);
-      	$('#deleteCategory_'+category_row_id).submit();
-      });
+    $('.submitDeleteModal').click(function() {
+      var category_row_id = $(this).attr('category_row_id');
+      console.log(category_row_id);
+      $('#deleteCategory_' + category_row_id).submit();
+    });
   });
 </script>
 @endsection

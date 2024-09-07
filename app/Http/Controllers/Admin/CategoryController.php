@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Common;
-use Illuminate\Console\View\Components\Alert;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Intervention\Image\Laravel\Facades\Image;
@@ -18,7 +17,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $data = array();
+        //$data = array();
+        $common_model = new Common();
+        $data['all_records'] = $common_model->allCategories(); 
         return view('admin.category.index',compact('data'));
     }
 
@@ -55,7 +56,7 @@ class CategoryController extends Controller
 
             $category_image->move(public_path('uploads/category').'/original/',$filename);
             $image_resize = Image::read(public_path('uploads/category').'/original/'.$filename);
-            $image_resize->resize(200,null,function($constraint){
+            $image_resize->resize(200, null, function($constraint) {
                 $constraint->aspectRatio();
             });
             $image_resize->save(public_path('uploads/category').'/thumbnail/'.$filename);
@@ -97,7 +98,7 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        
     }
 
     /**
