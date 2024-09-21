@@ -7,8 +7,7 @@ use App\Models\Common;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Intervention\Image\Laravel\Facades\Image;
-use DB;
-
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
