@@ -49,7 +49,7 @@
                        <option value="" @if( $data['single_info']->parent_id == 0 ) selected = "selected" @endif>Select</option>
                        <option value="0" @if( $data['single_info']->parent_id == 0 ) selected = "selected" @endif> Main Category </option>
                         @foreach($data['all_records'] as $row)
-                          <option value="{{ $row->category_row_id }}" @if($data['single_info']->category_row_id == $row->category_row_id) selected = "selected" @endif>
+                          <option value="{{ $row->category_row_id }}" @if($data['single_info']->parent_id == $row->category_row_id) selected = "selected" @endif>
                           @if($row->level == 0) <b>  @endif 
                           @if($row->level == 1) &nbsp; - @endif   
                           @if($row->level == 2) &nbsp; &nbsp; - - @endif     
@@ -71,7 +71,7 @@
                       @if($data['single_info']->category_image  != null)
                         <img src="{{ asset('uploads/category/').'/'.$data['single_info']->category_image }}" alt="" width="50px" height="50px">
                       @else
-                        <img src="{{ asset('uploads/category/no_category.png') }}" alt="" width="50px" height="50px">
+                        <img src="{{ asset('images/no-image-found.jpg') }}" alt="" width="50px" height="50px">
                       @endif
                     </span>
                   </div>
