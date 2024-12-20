@@ -20,7 +20,7 @@ class CategoryController extends Controller
     {
         //$data = array();
         $common_model = new Common();
-        $data['all_records'] = $common_model->allCategories(); 
+        $data['all_records'] = $common_model->allCategories();
         return view('admin.category.index',compact('data'));
     }
 
