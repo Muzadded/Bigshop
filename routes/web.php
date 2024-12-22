@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Admin\PermissionController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 Route::get('/', function () {
@@ -10,29 +11,33 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::namespace('App\Http\Controllers')->group(function(){
-    
-    
-});
+Route::namespace('App\Http\Controllers')->group(function () {});
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::namespace("App\Http\Controllers\Admin")->prefix('admin')->group(function(){
-    
-    Route::get('/dashboard', 'DashboardController@index')->name('admin.home');
+Route::namespace("App\Http\Controllers\Admin")->prefix('admin')->group(function () {
 
-    Route::resource('/category','CategoryController');
-    Route::resource('/attributes','AttributesController');
-    Route::resource('/products', 'ProductController');
-    Route::post('/get-product-details', 'ProductController@getProductDetails')->name('get-product-details');
+    Route::middleware('admin')->group(function () {
 
-    Route::namespace('Auth')->group(function(){
-        Route::get('/login','LoginController@showloginform')->name('admin.login');
-        Route::post('/login','LoginController@login');
-        Route::post('logout','LoginController@logout')->name('admin.logout');
+        Route::get('/dashboard', 'DashboardController@index')->name('admin.home');
 
-    });
+        Route::resource('/category', 'CategoryController');
+        Route::resource('/attributes', 'AttributesController');
+        Route::resource('/products', 'ProductController');
+        Route::post('/get-product-details', 'ProductController@getProductDetails')->name('get-product-details');
         
+        Route::resource('permissions', 'PermissionController');
+        Route::resource('users','UserController');
+        Route::resource('roles','RoleController');
+        Route::get('/roles/{roleId}/give-permissions','RoleController@addPermissionToRole');
+        Route::put('/roles/{roleId}/give-permissions','RoleController@givePermissionToRole');
+    });
+
+    Route::namespace('Auth')->group(function () {
+        Route::get('/login', 'LoginController@showloginform')->name('admin.login');
+        Route::post('/login', 'LoginController@login');
+        Route::post('logout', 'LoginController@logout')->name('admin.logout');
+    });
 });
 
 //stop
