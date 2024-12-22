@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>AdminLTE 3 | Dashboard 2</title>
 
   <!-- Google Font: Source Sans Pro -->
@@ -19,6 +20,9 @@
 <!-- iCheck for checkboxes and radio inputs -->
 <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
 <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css') }}">
+
+<!-- jQuery -->
+<script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
 
 </head>
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
@@ -283,7 +287,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('attributes.index') }}" class="nav-link active">
+                <a href="{{ route('attributes.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>View Attributes</p>
                 </a>
@@ -306,7 +310,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="{{ route('products.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>View Product</p>
                 </a>
@@ -385,8 +389,7 @@
 <!-- ./wrapper -->
 
 <!-- REQUIRED SCRIPTS -->
-<!-- jQuery -->
-<script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+
 <!-- Bootstrap -->
 <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <!-- overlayScrollbars -->

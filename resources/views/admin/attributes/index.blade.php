@@ -103,8 +103,8 @@
   </div>
   <!-- /.modal-dialog -->
 </div>
-<script src="{{ asset('admin_files/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('admin_files/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
 
 <script type="text/javascript">
   $(document).ready(function() {
