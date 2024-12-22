@@ -341,7 +341,7 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link active">
+            <a href="{{ route('users.index') }}" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Manage Users
@@ -350,10 +350,19 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link active">
+            <a href="{{ route('roles.index') }}" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Manage Roles
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('permissions.index') }}" class="nav-link active">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Manage Permissions
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -417,7 +426,7 @@
 <script src="{{ asset('plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}"></script>
 <!-- date-range-picker -->
 <script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
-<script src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script>  
+<script src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script>
 
 </body>
 </html>
