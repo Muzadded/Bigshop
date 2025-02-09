@@ -15,6 +15,17 @@ Route::namespace('App\Http\Controllers')->group(function () {});
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::get('send-mail',function(){
+    $details = [
+        'title' => 'Mail From CDIP',
+        'body' => "This is for testing email using SMTP"
+    ];
+
+    \Mail::to('riobro555@gmail.com')->send(new \App\Mail\CategoryEmail($details));
+
+    dd("Email is Sent.");
+});
+
 Route::namespace("App\Http\Controllers\Admin")->prefix('admin')->group(function () {
 
     Route::middleware('admin')->group(function () {
@@ -25,7 +36,7 @@ Route::namespace("App\Http\Controllers\Admin")->prefix('admin')->group(function 
         Route::resource('/attributes', 'AttributesController');
         Route::resource('/products', 'ProductController');
         Route::post('/get-product-details', 'ProductController@getProductDetails')->name('get-product-details');
-        
+
         Route::resource('permissions', 'PermissionController');
         Route::resource('users','UserController');
         Route::resource('roles','RoleController');

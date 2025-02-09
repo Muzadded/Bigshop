@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Categories;
 use App\Models\Common;
 use App\Models\Product;
+use App\Models\Category;
 
 class ApiController extends Controller
 {
@@ -49,5 +50,31 @@ class ApiController extends Controller
         }else{
             return response()->json(['error' => 'Category Id is not valid, Id Should be Numeric'],500);
         }
+    }
+
+    public function getAllFeaturedCategory(){
+
+        $featured_category = Category::where('is_featured', 1)->withCount('total_products')->get();
+        if(isset($featured_category)){
+            return response()->json($featured_category);
+        } else {
+            return response()->json(['error' => 'No featured category found'], 500);
+        }
+    }
+
+    public function search(Request $request){
+        // Validate the search query
+        $request->validate([
+            'query' => 'required|string|min:1'
+        ]);
+
+        // Search products based on the query
+        $query = $request->input('query');
+
+        $products = Product::where('product_title', 'like', "%$query%")
+                           ->orWhere('short_description', 'like', "%$query%")
+                           ->get();
+
+        return response()->json($products);
     }
 }
