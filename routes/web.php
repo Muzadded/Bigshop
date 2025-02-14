@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+
+use App\Http\Middleware\TestMiddleware;
 use App\Http\Controllers\Admin\PermissionController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 

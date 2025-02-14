@@ -7,6 +7,7 @@ use App\Models\Categories;
 use App\Models\Common;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Attribute;
 
 class ApiController extends Controller
 {
@@ -38,31 +39,109 @@ class ApiController extends Controller
         }
     }
 
-    public function getProductsByCategoryId($cid){
-        if(is_numeric($cid) && $cid > 0){
+    public function getProductsByCategoryId($cid)
+    {
+        if (is_numeric($cid) && $cid > 0) {
             $products = Product::with('product_images', 'product_inventory', 'product_attribute', 'getCategory')->where('category_id', $cid)->get();
 
-            if(isset($products)){
+            if (isset($products)) {
                 return response()->json($products);
-            }else{
-                return response()->json(['error' => 'Wrong Category ID provided'],500);
+            } else {
+                return response()->json(['error' => 'Wrong Category ID provided'], 500);
             }
-        }else{
-            return response()->json(['error' => 'Category Id is not valid, Id Should be Numeric'],500);
+        } else {
+            return response()->json(['error' => 'Category Id is not valid, Id Should be Numeric'], 500);
         }
     }
 
-    public function getAllFeaturedCategory(){
+
+    
+    public function getProductsById($pid){
+
+    	if(is_numeric($pid) && $pid > 0){
+            $product_full_details = array();
+    		$product_details = Product::with('product_images', 'product_inventory', 'product_attribute', 'getCategory')->where('product_id', $pid)->first();
+            $product_full_details['product_details'] = $product_details;
+            $product_attributes = $product_details->product_attribute;
+            //dd($product_attributes);
+            $size_array = array();
+            $size_numeric_array = array();
+            $color_array = array();
+            $other_array = array();
+            $main_array = array();
+            $all_attributes = Attribute::all(); 
+       
+            foreach ($all_attributes as $key => $value) {
+            if($value->attribute_name == 'Size'){
+                $main_array['size'] = json_decode($value->attribute_value, true);
+            } elseif($value->attribute_name == 'Color'){
+                $main_array['color'] = json_decode($value->attribute_value, true);
+            } elseif($value->attribute_name == 'Size (Numeric)'){
+                $main_array['size_numeric'] = json_decode($value->attribute_value, true);
+            } else {
+                $main_array['other'] = json_decode($value->attribute_value, true);
+            }
+            }
+
+            //dd($product_attributes);
+
+            foreach ($product_attributes as $pakey => $pavalue) {
+                $parray = explode("+", $pavalue['attribute_title']);
+                foreach ($parray as $key => $value) {
+                //echo $value.'<br>';
+                if(in_array(trim($value), $main_array['size'])){
+                    $size_array[] = trim($value); 
+                } elseif(in_array(trim($value), $main_array['color'])){
+                    $color_array[] = trim($value);
+                } elseif(in_array(trim($value), $main_array['size_numeric'])){
+                    $size_numeric_array[] = trim($value);
+                } else {
+                    $other_array[] = trim($value);
+                }
+                }
+                
+            }
+            $size_data = array_unique($size_array);
+            $color_data = array_unique($color_array);
+            $size_numeric_data = array_unique($size_numeric_array);
+
+            $product_full_details['size_data'] = $size_data;
+            $product_full_details['color_data'] = $color_data;
+            $product_full_details['size_numeric_data'] = $size_numeric_data;
+
+
+    		if(isset($product_details)){
+    			return response()->json($product_full_details);	
+    		} else {
+    			return response()->json(['error' => 'Wrong Product ID provided'], 500);
+    		}
+    		
+    	} else {
+    		return response()->json(['error' => 'Product ID is not valid, ID should be numeric'], 500);
+    	}
+
+    }
+
+
+
+
+
+    public function getAllFeaturedCategory()
+    {
 
         $featured_category = Category::where('is_featured', 1)->withCount('total_products')->get();
-        if(isset($featured_category)){
+        if (isset($featured_category)) {
             return response()->json($featured_category);
         } else {
             return response()->json(['error' => 'No featured category found'], 500);
         }
     }
 
-    public function search(Request $request){
+
+
+
+    public function search(Request $request)
+    {
         // Validate the search query
         $request->validate([
             'query' => 'required|string|min:1'
@@ -72,8 +151,8 @@ class ApiController extends Controller
         $query = $request->input('query');
 
         $products = Product::where('product_title', 'like', "%$query%")
-                           ->orWhere('short_description', 'like', "%$query%")
-                           ->get();
+            ->orWhere('short_description', 'like', "%$query%")
+            ->get();
 
         return response()->json($products);
     }
