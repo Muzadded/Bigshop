@@ -15,4 +15,5 @@
 
     Route::get('/products/search', [ApiController::class, 'search']);
 
+    Route::post('/submitOrderDetails', [ApiController::class, 'submitOrderDetails']);
 ?>
