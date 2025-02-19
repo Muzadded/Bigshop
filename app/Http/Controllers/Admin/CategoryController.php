@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
 
 
+
 class CategoryController extends Controller
 {
     /**
@@ -86,7 +87,6 @@ class CategoryController extends Controller
             'title' => '!!!! Category Creation Alert !!!! ',
             'body' => 'A new Category "' . $request->category_name . '" Has Been Created'
         ];
-        \Mail::to('riobro555@gmail.com')->send(new \App\Mail\CategoryEmail($details));
 
         Alert::success('Category Created Successfully!', 'success');
         return Redirect::to('/admin/category');
@@ -192,6 +192,18 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $category = Category::find($id);
+        
+        if ($category) {
+            // Check if the category has children
+            if ($category->has_child == 0) {
+                $category->forceDelete(); // Use forceDelete() if using soft deletes
+                return redirect()->route('category.index')->with('success', 'Category deleted successfully.');
+            } else {
+                return redirect()->route('category.index')->with('error', 'Cannot delete category with children.');
+            }
+        }
+    
+        return redirect()->route('category.index')->with('error', 'Category not found.');
     }
 }

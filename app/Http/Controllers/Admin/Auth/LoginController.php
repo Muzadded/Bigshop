@@ -43,7 +43,7 @@ class LoginController extends Controller
 
     public function showLoginForm()
     {
-        return view('admin.auth.login');   
+        return view('admin.auth.login');
     }
 
     // protected function guard()
@@ -51,15 +51,23 @@ class LoginController extends Controller
     //     return Auth::guard('admin');
     // }
 
-    public function login(Request $request){
+    public function login(Request $request)
+    {
 
         $credentials = $request->only('email', 'password');
         //dd($credentials);
 
-        if(Auth::guard('admin')->attempt($credentials)){
+        if (Auth::guard('admin')->attempt($credentials)) {
             return redirect()->intended('/admin/dashboard');
         }
 
         return redirect()->back()->withErrors(['email' => 'Invalid credentials']);
+    }
+
+    public function loggedout()
+    {
+        //dd('comes');
+        Auth()->guard('admin')->logout();
+        return redirect('/admin/login');
     }
 }

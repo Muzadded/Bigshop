@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
-use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Attribute;
 use Illuminate\Http\Request;
+
 
 class AttributesController extends Controller
 {
@@ -19,17 +19,12 @@ class AttributesController extends Controller
         return view('admin.attributes.index', compact('all_attributes'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
         return view('admin.attributes.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         //dd($request);
@@ -50,44 +45,58 @@ class AttributesController extends Controller
         return redirect()->route('attributes.create');
     }
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show(string $id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit(string $id)
     {
-        $all_attributes = Attribute::where('attribute_row_id', $id)->first();
-        //dd($all_attributes);
-        return view('admin.attributes.edit', compact('all_attributes'));
+        // Fetch the specific attribute using Eloquent
+        $attribute = Attribute::find($id);
+
+        // Check if the attribute exists
+        if (!$attribute) {
+            return redirect()->route('attributes.index')->with('error', 'Attribute not found.');
+        }
+
+        // Optionally fetch all attributes (if needed for some other logic)
+        $all_attributes = Attribute::all();
+
+        // Pass the data to the edit view
+        return view('admin.attributes.edit', [
+            'attribute' => $attribute,
+            'all_attributes' => $all_attributes,
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+
+
+    public function update(Request $request, $id)
     {
-        //dd($request);
+        // Validate the incoming request data
+        $validated = $request->validate([
+            'attribute_name' => 'required',
+        ]);
 
-        $attribute_model = Attribute::findOrFail($request->input('attr_id'));
+        // Find the attribute by its primary key
+        $attribute_model = Attribute::findOrFail($id);
 
+        // Update the attribute's fields
         $attribute_model->attribute_name = $request->input('attribute_name');
         $attribute_model->attribute_value = json_encode($request->input('attribute_values'));
-        $attribute_model->created_by = Auth::guard('admin')->user()->id;
+        $attribute_model->updated_at = now();  // Optionally update the 'updated_at' field
 
+        // Save the updated attribute
         $attribute_model->save();
-        return redirect()->route('attributes.index');
+
+        // Redirect back with a success message
+        return redirect()->route('attributes.index')->with('success', 'Attribute updated successfully!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(string $id)
     {
         //
