@@ -210,4 +210,45 @@ class ApiController extends Controller
         //return response()->json([$request->all()]);
 
     }
+
+    public function getAllOrders()
+    {
+        // Fetch all orders from the database
+        $orders = Order::all();
+
+        // Return orders as JSON response
+        return response()->json($orders);
+    }
+   
+
+
+    public function getOrderById($id)
+    {
+        // Fetch the order by ID
+        $order = Order::find($id);
+
+        // If the order is not found, return a 404 error response
+        if (!$order) {
+            return response()->json(['message' => 'Order not found'], 404);
+        }
+
+        // Return the order data as JSON response
+        return response()->json($order);
+    }
+
+
+
+    public function getLatestOrder()
+    {
+        // Fetch the latest order based on created_at, order by latest first
+        $latestOrder = Order::orderBy('updated_at', 'desc')->first();
+    
+        // If no order is found, return a 404 error response
+        if (!$latestOrder) {
+            return response()->json(['message' => 'No orders found'], 404);
+        }
+    
+        // Return the latest order data as JSON response
+        return response()->json($latestOrder);
+    }
 }
