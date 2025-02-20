@@ -42,7 +42,7 @@ class AttributesController extends Controller
         $attribute_model->save();
 
         // Alert::success('Attribute Created Successfully!', 'success');
-        return redirect()->route('attributes.create');
+        return redirect()->route('attributes.index');
     }
 
 
@@ -97,8 +97,10 @@ class AttributesController extends Controller
     }
 
 
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $attribute = Attribute::find($id);
+        $attribute->forceDelete();
+        return redirect()->route('attributes.index')->with('success', 'Attributes deleted successfully.');
     }
 }

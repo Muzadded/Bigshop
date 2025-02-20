@@ -53,7 +53,7 @@
 
               <div class="info-box-content">
                 <span class="info-box-text">Total Order</span>
-                <span class="info-box-number">760</span>
+                <span class="info-box-number">{{ $order_count }}</span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -66,7 +66,7 @@
 
               <div class="info-box-content">
                 <span class="info-box-text">Total Users</span>
-                <span class="info-box-number">2,000</span>
+                <span class="info-box-number">{{ $user_count }}</span>
               </div>
               <!-- /.info-box-content -->
             </div>

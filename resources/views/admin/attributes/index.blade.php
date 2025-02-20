@@ -57,13 +57,20 @@
                         @endforeach
                       </td>
                       <td>
-                        <button onclick="window.location='{{ url('/')}}/admin/category/{{$row->attribute_row_id }}/edit'" class="btn btn-sm btn-warning mb-2">Edit</button>
-                        <form id="deleteCategory_{{$row->attribute_row_id }}" action="{{ url('/')}}/admin/category/{{$row->attribute_row_id }}" style="display: inline;" method="POST">
-                          {{ method_field('DELETE') }}
-                          @csrf
-                          <input class="btn btn-sm btn-danger deleteLink" category_name="{{ $row->category_name }}" attribute_row_id ="{{$row->attribute_row_id }}" data-toggle="modal" data-target="#category-delete-modal" deleteID="{{$row->attribute_row_id }}" value="Delete" style="width: 100px; margin-top: -8px;">
-                        </form>
-                      </td>                        
+                        <button onclick="window.location='{{ url('/')}}/admin/attributes/{{$row->attribute_row_id }}/edit'" class="btn btn-sm btn-warning mb-2" style="margin-top: 8px; padding: 9px;">Edit</button>
+                        <!-- Delete Form -->
+
+                      <form id="deleteAttribute_{{$row->attribute_row_id}}" action="{{ route('attributes.destroy', $row->attribute_row_id) }}" method="POST" style="display: inline;">
+                        @csrf
+                        @method('DELETE')
+                        <!-- Directly submit the form on button click -->
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this Attribute?');">
+                          Delete
+                        </button>
+                      </form>
+
+                    <!-- Delete Form END-->
+                      </td>
                     </tr>
                   @endforeach
 							</tbody>
@@ -83,26 +90,6 @@
 <!-- /.content -->
 
 
-<div class="modal modal-danger fade" id="category-delete-modal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Delete Category</h4>
-      </div>
-      <div class="modal-body">
-        <p>Do you really want to delete <b class="catname"></b> category?</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-outline submitDeleteModal">Submit</button>
-      </div>
-    </div>
-    <!-- /.modal-content -->
-  </div>
-  <!-- /.modal-dialog -->
-</div>
 <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
 

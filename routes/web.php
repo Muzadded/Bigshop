@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\AboutUsController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\CommonController;
 
 Auth::routes();
@@ -18,7 +19,8 @@ Route::namespace("App\Http\Controllers\Admin")->prefix('admin')->group(function 
 
     Route::middleware('admin')->group(function () {
 
-        Route::get('/dashboard', 'DashboardController@index')->name('admin.home');
+        // Route::get('/dashboard', 'DashboardController@index')->name('admin.home');
+        Route::get('/dashboard', [DashboardController::class, 'latest_order'])->name('dashboard');
 
         Route::resource('/category', 'CategoryController');
         Route::resource('/attributes', 'AttributesController');
@@ -31,7 +33,6 @@ Route::namespace("App\Http\Controllers\Admin")->prefix('admin')->group(function 
         Route::get('admin/roles/{role}', 'RoleController@show')->name('roles.show');
 
         Route::get('/orders', [OrderController::class, 'index'])->name('order.index');
-        Route::get('/orders/{order}/edit', [OrderController::class, 'edit'])->name('order.edit');
         Route::put('/admin/orders/{order}/status/{status}', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
 
         Route::resource('permissions', 'PermissionController');

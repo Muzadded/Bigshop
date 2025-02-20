@@ -9,6 +9,7 @@ class Attribute extends Model
 {
     use HasFactory;
     protected $table = 'attributes';
+    protected $primaryKey = 'attribute_row_id';
 
     protected $fillable = [
         'attributes_name',
