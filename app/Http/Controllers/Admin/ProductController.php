@@ -26,15 +26,10 @@ class ProductController extends Controller
     public function index()
     {
         $all_products = Product::with('product_images', 'getCategory', 'product_inventory', 'product_attribute')->get();
-
         //dd($all_products);
-
         return view('admin.products.index', compact('all_products'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $common_model = new Common();

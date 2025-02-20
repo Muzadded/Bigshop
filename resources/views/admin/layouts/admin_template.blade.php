@@ -41,7 +41,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="{{ route('admin.home') }}" class="nav-link">Home</a>
+        <a href="{{ route('dashboard') }}" class="nav-link">Dashboard</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Contact</a>
@@ -231,13 +231,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>All Orders</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="{{ route('order.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>View Orders</p>
                 </a>

@@ -6,13 +6,13 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Dashboard v2</h1>
+            <h1 class="m-0">BoroBazar</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard v2</li>
+              <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
             </ol>
+            
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -20,33 +20,23 @@
     <!-- /.content-header -->
 
     <!-- Main content -->
+    <div class="card-header bg-gradient-primary text-white">
+            <h5 class="mb-0">Admin Dashboard</h5>
+        </div>
     <section class="content">
+      
       <div class="container-fluid">
+      
         <!-- Info boxes -->
-        <div class="row">
-          <div class="col-12 col-sm-6 col-md-3">
-            <div class="info-box">
-              <span class="info-box-icon bg-info elevation-1"><i class="fas fa-cog"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">CPU Traffic</span>
-                <span class="info-box-number">
-                  10
-                  <small>%</small>
-                </span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
+        <div class="row justify-content-center">
           <!-- /.col -->
-          <div class="col-12 col-sm-6 col-md-3">
+          <div class="col-12 col-sm-6 col-md-2">
             <div class="info-box mb-3">
               <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-thumbs-up"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">Likes</span>
-                <span class="info-box-number">41,410</span>
+                <span class="info-box-text">Top Sale</span>
+                <span class="info-box-number">Men Shirt</span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -57,12 +47,12 @@
           <!-- fix for small devices only -->
           <div class="clearfix hidden-md-up"></div>
 
-          <div class="col-12 col-sm-6 col-md-3">
+          <div class="col-12 col-sm-6 col-md-2">
             <div class="info-box mb-3">
               <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">Sales</span>
+                <span class="info-box-text">Total Order</span>
                 <span class="info-box-number">760</span>
               </div>
               <!-- /.info-box-content -->
@@ -70,12 +60,12 @@
             <!-- /.info-box -->
           </div>
           <!-- /.col -->
-          <div class="col-12 col-sm-6 col-md-3">
+          <div class="col-12 col-sm-6 col-md-2">
             <div class="info-box mb-3">
               <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">New Members</span>
+                <span class="info-box-text">Total Users</span>
                 <span class="info-box-number">2,000</span>
               </div>
               <!-- /.info-box-content -->
@@ -571,81 +561,58 @@
               <!-- /.card-header -->
               <div class="card-body p-0">
                 <div class="table-responsive">
-                  <table class="table m-0">
-                    <thead>
-                    <tr>
-                      <th>Order ID</th>
-                      <th>Item</th>
-                      <th>Status</th>
-                      <th>Popularity</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                      <td><a href="pages/examples/invoice.html">OR9842</a></td>
-                      <td>Call of Duty IV</td>
-                      <td><span class="badge badge-success">Shipped</span></td>
-                      <td>
-                        <div class="sparkbar" data-color="#00a65a" data-height="20">90,80,90,-70,61,-83,63</div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><a href="pages/examples/invoice.html">OR1848</a></td>
-                      <td>Samsung Smart TV</td>
-                      <td><span class="badge badge-warning">Pending</span></td>
-                      <td>
-                        <div class="sparkbar" data-color="#f39c12" data-height="20">90,80,-90,70,61,-83,68</div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><a href="pages/examples/invoice.html">OR7429</a></td>
-                      <td>iPhone 6 Plus</td>
-                      <td><span class="badge badge-danger">Delivered</span></td>
-                      <td>
-                        <div class="sparkbar" data-color="#f56954" data-height="20">90,-80,90,70,-61,83,63</div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><a href="pages/examples/invoice.html">OR7429</a></td>
-                      <td>Samsung Smart TV</td>
-                      <td><span class="badge badge-info">Processing</span></td>
-                      <td>
-                        <div class="sparkbar" data-color="#00c0ef" data-height="20">90,80,-90,70,-61,83,63</div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><a href="pages/examples/invoice.html">OR1848</a></td>
-                      <td>Samsung Smart TV</td>
-                      <td><span class="badge badge-warning">Pending</span></td>
-                      <td>
-                        <div class="sparkbar" data-color="#f39c12" data-height="20">90,80,-90,70,61,-83,68</div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><a href="pages/examples/invoice.html">OR7429</a></td>
-                      <td>iPhone 6 Plus</td>
-                      <td><span class="badge badge-danger">Delivered</span></td>
-                      <td>
-                        <div class="sparkbar" data-color="#f56954" data-height="20">90,-80,90,70,-61,83,63</div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><a href="pages/examples/invoice.html">OR9842</a></td>
-                      <td>Call of Duty IV</td>
-                      <td><span class="badge badge-success">Shipped</span></td>
-                      <td>
-                        <div class="sparkbar" data-color="#00a65a" data-height="20">90,80,90,-70,61,-83,63</div>
-                      </td>
-                    </tr>
-                    </tbody>
-                  </table>
+                <table id="order_table" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>User ID</th>
+                                    <th>Order Number</th>
+                                    <th>Total Amount</th>
+                                    <th>Payment Method</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($latest_orders as $order)
+                                <tr>
+                                    <td>{{ $order->id }}</td>
+                                    <td>{{ $order->user_id }}</td>
+                                    <td>{{ $order->order_number }}</td>
+                                    <td>{{ $order->total_amount }}</td>
+                                    <td>{{ $order->payment_gateway }}</td>
+                                    <td>{{ $order->status }}</td>
+                                    <td>
+                                        <!-- Processing Button -->
+                                        <form action="{{ route('orders.updateStatus', ['order' => $order->id, 'status' => 'processing']) }}" method="POST" style="display: inline;">
+                                            @csrf
+                                            @method('PUT')
+                                            <button type="submit" class="btn btn-sm btn-info">On Process</button>
+                                        </form>
+
+                                        <!-- Complete Button -->
+                                        <form action="{{ route('orders.updateStatus', ['order' => $order->id, 'status' => 'completed']) }}" method="POST" style="display: inline;">
+                                            @csrf
+                                            @method('PUT')
+                                            <button type="submit" class="btn btn-sm btn-success">Complete</button>
+                                        </form>
+                                        <!-- Delete Button -->
+                                        {{-- <form id="deleteOrder_{{$order->id}}" action="{{ url('/')}}/admin/orders/{{$order->id}}" style="display: inline;" method="POST">
+                                        {{ method_field('DELETE') }}
+                                        @csrf
+                                        <input class="btn btn-sm btn-danger deleteLink" order_id="{{ $order->id }}" data-toggle="modal" data-target="#order-delete-modal" value="Delete" style="width: 100px; margin-top: -8px;">
+                                        </form> --}}
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                 </div>
                 <!-- /.table-responsive -->
               </div>
               <!-- /.card-body -->
               <div class="card-footer clearfix">
-                <a href="javascript:void(0)" class="btn btn-sm btn-info float-left">Place New Order</a>
-                <a href="javascript:void(0)" class="btn btn-sm btn-secondary float-right">View All Orders</a>
+                <a href="{{ route('order.index') }}" class="btn btn-sm btn-secondary float-right">View All Orders</a>
               </div>
               <!-- /.card-footer -->
             </div>
@@ -767,7 +734,7 @@
             <!-- /.card -->
 
             <!-- PRODUCT LIST -->
-            <div class="card">
+            <!-- <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Recently Added Products</h3>
 
@@ -779,9 +746,9 @@
                     <i class="fas fa-times"></i>
                   </button>
                 </div>
-              </div>
+              </div> -->
               <!-- /.card-header -->
-              <div class="card-body p-0">
+              <!-- <div class="card-body p-0">
                 <ul class="products-list product-list-in-card pl-2 pr-2">
                   <li class="item">
                     <div class="product-img">
@@ -794,9 +761,9 @@
                         Samsung 32" 1080p 60Hz LED Smart HDTV.
                       </span>
                     </div>
-                  </li>
+                  </li> -->
                   <!-- /.item -->
-                  <li class="item">
+                  <!-- <li class="item">
                     <div class="product-img">
                       <img src="dist/img/default-150x150.png" alt="Product Image" class="img-size-50">
                     </div>
@@ -807,9 +774,9 @@
                         26" Mongoose Dolomite Men's 7-speed, Navy Blue.
                       </span>
                     </div>
-                  </li>
+                  </li> -->
                   <!-- /.item -->
-                  <li class="item">
+                  <!-- <li class="item">
                     <div class="product-img">
                       <img src="dist/img/default-150x150.png" alt="Product Image" class="img-size-50">
                     </div>
@@ -823,9 +790,9 @@
                         Xbox One Console Bundle with Halo Master Chief Collection.
                       </span>
                     </div>
-                  </li>
+                  </li> -->
                   <!-- /.item -->
-                  <li class="item">
+                  <!-- <li class="item">
                     <div class="product-img">
                       <img src="dist/img/default-150x150.png" alt="Product Image" class="img-size-50">
                     </div>
@@ -836,18 +803,18 @@
                         PlayStation 4 500GB Console (PS4)
                       </span>
                     </div>
-                  </li>
+                  </li> -->
                   <!-- /.item -->
-                </ul>
-              </div>
+                <!-- </ul>
+              </div> -->
               <!-- /.card-body -->
-              <div class="card-footer text-center">
+              <!-- <div class="card-footer text-center">
                 <a href="javascript:void(0)" class="uppercase">View All Products</a>
-              </div>
+              </div> -->
               <!-- /.card-footer -->
-            </div>
+            <!-- </div> -->
             <!-- /.card -->
-          </div>
+          <!-- </div> -->
           <!-- /.col -->
         </div>
         <!-- /.row -->
