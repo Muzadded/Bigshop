@@ -406,7 +406,7 @@
                       </div>
 
                       <div class="col-12" style="margin: 10px">
-                        <a href="#" class="btn btn-secondary">Cancel</a>
+                        <a href="{{ url('admin/products') }}" class="btn btn-secondary">Cancel</a>
                         <input type="submit" value="Submit" class="btn btn-success float-right">
                       </div>
 

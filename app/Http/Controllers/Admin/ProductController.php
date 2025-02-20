@@ -325,21 +325,18 @@ class ProductController extends Controller
         $product_attributes = $product_details->product_attribute;
         //dd($product_attributes);
         $size_array = array();
-        $size_numeric_array = array();
         $color_array = array();
         $other_array = array();
         $main_array = array();
 
-        $all_attributes = Attribute::all(); 
+        $all_attributes = Attribute::all();
        
         foreach ($all_attributes as $key => $value) {
           if($value->attribute_name == 'Size'){
             $main_array['size'] = json_decode($value->attribute_value, true);
           } elseif($value->attribute_name == 'Color'){
             $main_array['color'] = json_decode($value->attribute_value, true);
-          } elseif($value->attribute_name == 'Size (Numeric)'){
-            $main_array['size_numeric'] = json_decode($value->attribute_value, true);
-          } else {
+          }else {
             $main_array['other'] = json_decode($value->attribute_value, true);
           }
         }
@@ -354,19 +351,13 @@ class ProductController extends Controller
                 $size_array[] = trim($value); 
               } elseif(in_array(trim($value), $main_array['color'])){
                 $color_array[] = trim($value);
-              } elseif(in_array(trim($value), $main_array['size_numeric'])){
-                $size_numeric_array[] = trim($value);
-              } else {
+              }else {
                 $other_array[] = trim($value);
               }
             }
-            
         }
         $size_data = array_unique($size_array);
         $color_data = array_unique($color_array);
-        $size_numeric_data = array_unique($size_numeric_array);
-
-        //dd($size_numeric_data);
 
         $gallery_images = json_decode($product_details->product_images->gallery_images, true);
         //dd($gallery_images);
@@ -397,13 +388,6 @@ class ProductController extends Controller
         }
 
         $size_numeric_html = '';
-        foreach ($size_numeric_data as $skey => $svalue) {
-          $size_numeric_html .= '<label class="btn btn-default text-center">
-                  <input type="radio" name="color_option" id="color_option_'.$skey.'" autocomplete="off">
-                  <span class="text-xl">'.$svalue.'</span>
-                  <br>
-                </label>';
-        }
 
         $size_enable = (isset($size_html) && ($size_html != '')) ? $size_html : $size_numeric_html;
 
