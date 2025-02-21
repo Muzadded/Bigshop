@@ -191,6 +191,7 @@ class ApiController extends Controller
         $order_db->status = 'pending';
         $order_db->description = '';
         $order_db->user_id = $user->id;
+        $order_db->payment_gateway = "cash on delivery";
         $order_db->save();
 
         $order_information['order_data'] = $order_db;
@@ -206,7 +207,7 @@ class ApiController extends Controller
         }
 
 
-        return response()->json($order_information);
+        return redirect('http://localhost:5173/thank');
         //return response()->json([$request->all()]);
 
     }
